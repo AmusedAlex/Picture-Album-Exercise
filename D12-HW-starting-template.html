@@ -54,7 +54,7 @@
       content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
     />
     <meta name="generator" content="Jekyll v3.8.5" />
-    <title>Album example · Bootstrap</title>
+    <title>Album by Alex · Bootstrap</title>
 
     <link
       rel="canonical"
@@ -127,10 +127,8 @@
             <div class="col-sm-8 col-md-7 py-4">
               <h4 class="text-white">About</h4>
               <p class="text-muted">
-                Add some information about the album below, the author, or any
-                other background context. Make it a few sentences long so folks
-                can pick up some informative tidbits. Then, link them off to
-                some social networking sites or contact information.
+                Just a random album displaying pictures from pexels.com
+                formatting with Bootstrap.
               </p>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
@@ -166,7 +164,7 @@
               />
               <circle cx="12" cy="13" r="4" />
             </svg>
-            <strong>Album</strong>
+            <strong>Album by Alex</strong>
           </a>
           <button
             class="navbar-toggler"
@@ -341,10 +339,6 @@
             </div>`;
             }
           });
-
-        setTimeout(() => {
-          alert("15 Pictures loaded");
-        }, 5000);
       };
       let loadSecondaryCards = () => {
         fetch("https://api.pexels.com/v1/search?query=office", {
