@@ -4,14 +4,11 @@
     <!--
         PICTURE ALBUM EXERCISE
 
-        Starting from the current bootstrap layout, implement as many of the following features as you can:
-
-        First of all: 
-        Register on pexels to retrieve your API key: https://www.pexels.com/api/new/
+        
 
         the key, once acquired, needs to go into the headers of your HTTP request with a property of 
         
-        {Authorization: "Bearer [YOUR API KEY]"}
+        {Authorization: "Bearer [563492ad6f917000010000015c7763f9de3246d494020eb7f005625d]"}
         
         this should be enough for you to make your GET request successfully
 
@@ -195,15 +192,25 @@
             them in a cool way!
           </p>
           <p>
-            <a href="#" class="btn btn-primary my-2">Load Images</a>
-            <a href="#" class="btn btn-secondary my-2">Load Secondary Images</a>
+            <a
+              href="#"
+              class="loadImagesBtn btn btn-primary my-2"
+              onclick="loadPrimaryCards()"
+              >Load Images</a
+            >
+            <a
+              href="#"
+              class="btn btn-secondary my-2"
+              onclick="loadSecondaryCards()"
+              >Load Secondary Images</a
+            >
           </p>
         </div>
       </section>
 
       <div class="album py-5 bg-light">
         <div class="container">
-          <div class="row">
+          <div class="row" id="row">
             <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <svg
@@ -646,5 +653,110 @@
       integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
       crossorigin="anonymous"
     ></script>
+    <script>
+      let loadPrimaryCards = () => {
+        fetch("https://api.pexels.com/v1/search?query=cars", {
+          headers: {
+            Authorization:
+              "563492ad6f917000010000015c7763f9de3246d494020eb7f005625d",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data.photos);
+            let row = document.querySelector("#row");
+            row.innerHTML = "";
+
+            for (data of data.photos) {
+              row.innerHTML += `<div class="col-md-4 mb-3">
+              <div class="card mb-4 shadow-sm h-100">
+                <img class="card-img-top" src="${data.src.landscape}" alt="${data.alt}" >
+                <div class="card-body">
+                  <p class="card-text">
+                    ${data.alt}
+                  </p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        View
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary" onclick="hideCard(event)"
+                      >
+                        Hide
+                      </button>
+                    </div>
+                    <small class="text-muted">ID: ${data.id}</small>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+            }
+          });
+      };
+      let loadSecondaryCards = () => {
+        fetch("https://api.pexels.com/v1/search?query=office", {
+          headers: {
+            Authorization:
+              "563492ad6f917000010000015c7763f9de3246d494020eb7f005625d",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data.photos);
+            let row = document.querySelector("#row");
+            row.innerHTML = "";
+
+            for (data of data.photos) {
+              row.innerHTML += `<div class="col-md-4 mb-3">
+              <div class="card mb-4 shadow-sm h-100">
+                <img class="card-img-top" src="${data.src.landscape}" alt="${data.alt}">
+                <div class="card-body">
+                  <p class="card-text">
+                    ${data.alt}
+                  </p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        View
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-secondary" onclick="hideCard(event)"
+                      >
+                        Hide
+                      </button>
+                    </div>
+                    <small class="text-muted">ID: ${data.id}</small>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+            }
+          });
+      };
+
+      let hideCard = (event) => {
+        let card =
+          event.target.parentElement.parentElement.parentElement.parentElement
+            .parentElement;
+        card.classList.add("d-none");
+      };
+    </script>
   </body>
 </html>
